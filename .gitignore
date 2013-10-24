@@ -1,8 +1,8 @@
 .idea
+git_repositories
 *.iml
 node_modules
 vendor
 bower_components
 *.git
 *.db
-data
