@@ -1,3 +1,3 @@
-/**
- * Created by jher00 on 10/24/13.
- */
+var server = require('./server/server');
+
+server.start();

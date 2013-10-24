@@ -1,11 +1,15 @@
 var express = require('express'),
     sqlite3 = require('sqlite3').verbose();
 
-
 var app = express();
+exports.app = app;
 var db = {};
-var template404 = '<h1>404 - Not found</h1>';
-var template400 = 'Error 400: Post syntax incorrect.';
+var template400 = '<h1>Error 400: Post syntax incorrect.</h1>\n';
+var template404 = '<h1>404 - Not found</h1>\n';
+var template406 = '<h1>Error 406: Not Acceptable. Package name and url must be unique.</h1>\n';
+exports.template400 = template400;
+exports.template404 = template404;
+exports.template406 = template406;
 
 exports.start = function(port){
     if(port === undefined){
@@ -18,20 +22,28 @@ exports.start = function(port){
     }
 };
 
-var initDB = function(dbName){
+var openDB = function(dbName){
     db = new sqlite3.Database(dbName, function (err) {
         if (err) {
             console.log('503 - Database error');
         }
     });
-    db.serialize(function () {
-        db.run('CREATE table IF NOT EXISTS packages(id integer primary key,' +
-            ' name varchar(500), url varchar(500), created_at date);');
+    return db;
+};
+var initDB = function(db, callback){
+    db.run('CREATE table IF NOT EXISTS packages(id integer primary key, ' +
+           'name varchar(500) UNIQUE, url varchar(500) UNIQUE, created_at date);', function(){
+        if(typeof(callback) === 'function'){
+            callback();
+        }
     });
 };
+exports.openDB = openDB;
+exports.initDB = initDB;
 
 app.configure(function () {
-    initDB('bowersNest.db');
+    openDB('nest.db');
+    initDB(db);
     app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
     app.use(express.bodyParser());
 });
@@ -42,39 +54,15 @@ app.get('/', function(req, res){
 
 
 app.get('/packages', function(req, res){
-    db.serialize(function () {
-        db.all('SELECT * FROM packages', function (err, row) {
-            res.send(row);
-            res.response = row;
-        });
+    db.all('SELECT * FROM packages', function (err, row) {
+        res.send(row);
     });
 });
 
 app.get('/packages/:name', function(req, res){
-    db.serialize(function () {
-        var name = req.params.name;
-        console.log('Retrieving bower component: ' + name);
+    var name = req.params.name;
 
-        db.get('SELECT name, url, created_at FROM packages WHERE name = $name', { $name: name }, function (err, row) {
-                if (row === undefined) {
-                    res.statusCode = 404;
-                    res.send(template404);
-                    return res;
-                }
-                else {
-                    res.send(row);
-                    res.response = row;
-                    return res;
-                }
-            }
-        );
-    });
-});
-
-app.get('/packages/search/:searchTerm', function(req, res){
-    db.serialize(function () {
-        console.log('Searching packages with name containing ' + req.params.searchTerm);
-        db.all('SELECT * FROM packages WHERE name LIKE "%' + req.params.searchTerm + '%"', function (err, row) {
+    db.get('SELECT name, url, created_at FROM packages WHERE name = $name', { $name: name }, function (err, row) {
             if (row === undefined) {
                 res.statusCode = 404;
                 res.send(template404);
@@ -82,45 +70,46 @@ app.get('/packages/search/:searchTerm', function(req, res){
             else {
                 res.send(row);
             }
-        });
-        return res;
+        }
+    );
+});
+
+app.get('/packages/search/:searchTerm', function(req, res){
+    db.all('SELECT * FROM packages WHERE name LIKE "%' + req.params.searchTerm + '%"', function (err, row) {
+        res.send(row);
     });
+    return res;
 });
 
 app.post('/packages', function(req, res){
-    db.serialize(function () {
-        var component = req.body;
+    var component = req.body;
 
-        if (!component.hasOwnProperty('name') || !component.hasOwnProperty('url')) {
-            res.statusCode = 400;
-            res.send(template404);
-        }
-        else{
-            console.log('Adding bower component: ' + JSON.stringify(component));
-            db.run('INSERT INTO packages ("name", "url", "created_at") VALUES ($name, $url, $date)',
-                {
-                    $name: component.name,
-                    $url: component.url,
-                    $date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-                },
-                function (err, row) {
-                    if (err) {
-                        console.log(err);
-                    }
+    if (!component.hasOwnProperty('name') || !component.hasOwnProperty('url')) {
+        res.statusCode = 400;
+        res.send(template400);
+    }
+    else{
+        db.run('INSERT INTO packages ("name", "url", "created_at") VALUES ($name, $url, $date)',
+            {
+                $name: component.name,
+                $url: component.url,
+                $date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+            },
+            function (err, row) {
+                if (err) {
+                    res.statusCode = 406;
+                    res.send(template406);
+                }
+                else{
                     res.writeHead(202, { 'Content-Type': 'text/html' });
                     res.send(row);
-                    res.end();
                 }
-            );
-        }
-    });
+            }
+        );
+    }
 });
 
 app.delete('/packages/:name', function(req, res){
-    db.serialize(function () {
-        var name = req.params.name;
-        console.log('Deleting bower component: ' + name);
-        db.run('DELETE FROM packages WHERE name = $name', {$name: name});
-    });
+    var name = req.params.name;
+    db.run('DELETE FROM packages WHERE name = $name', {$name: name});
 });
-

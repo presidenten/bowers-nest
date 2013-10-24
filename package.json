@@ -1,7 +1,7 @@
 {
   "name": "bowers-nest",
-  "version": "0.0.0",
-  "description": "Private Bower registry server running on NodeJS",
+  "version": "0.8.0",
+  "description": "Bowers-nest is a Bower registry written for node and express",
   "main": "server.js",
   "scripts": {
     "test": "none yet"
@@ -13,12 +13,21 @@
   "keywords": [
     "Bower",
     "Registry",
-    "NodeJS"
+    "NodeJS",
+    "SQLite3"
   ],
   "author": "Johan Hernefeldt",
   "license": "MIT",
   "dependencies": {
     "express": "~3.4.2",
-    "mongodb": "~1.3.19"
+    "sqlite3": "~2.1.17"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "matchdep": "~0.3.0",
+    "grunt-contrib-jshint": "~0.6.4",
+    "supertest": "~0.8.0",
+    "jasmine-node": "~1.11.0",
+    "grunt-jasmine-node": "~0.1.0"
   }
 }

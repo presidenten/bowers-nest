@@ -1,7 +1,7 @@
 {
   "name": "bowers-nest",
   "main": "bowers-nest.js",
-  "version": "1.0.0",
+  "version": "0.8.0",
   "homepage": "https://github.com/presidenten/bowers-nest",
   "authors": [
     "Johan Hernefeldt"
