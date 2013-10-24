@@ -5,3 +5,4 @@ vendor
 bower_components
 *.git
 *.db
+data
