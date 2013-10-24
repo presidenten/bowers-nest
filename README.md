@@ -48,7 +48,7 @@ Copy .bowerrc to to your project and have fun!
 
 
 
-#### Grunt tasks, how to register packages etc
+### Grunt tasks, how to register packages etc
 
 Register package with name = unicorn 
 
@@ -72,7 +72,7 @@ Sync with official Bower registry packages
 
     
 
-#### Manual tests:
+### Manual commands through curl:
 List packages, add package1 and package2, list package1, search for 1, remove one and list all
 
     curl http://localhost:9000/packages/
