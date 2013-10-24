@@ -1,6 +1,6 @@
 {
   "name": "bowers-nest",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Bowers-nest is a Bower registry written for node and express",
   "main": "server.js",
   "scripts": {
