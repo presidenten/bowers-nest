@@ -14,7 +14,7 @@ module.exports = function ( grunt ) {
             }
         },
         jasmine_node: {
-            projectRoot: 'coverage',
+            projectRoot: 'server',
             src: 'server.js',
             spec: 'server.spec.js',
             requirejs: false,
