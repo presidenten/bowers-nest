@@ -122,7 +122,6 @@ module.exports = function ( grunt ) {
         if(name !== undefined && name !== ''){
             var done = this.async();
             var db = new sqlite3.Database(dbName);
-            var cp = require('child_process');
 
             db.run('CREATE table IF NOT EXISTS packages(id integer primary key, ' +
                 'name varchar(500) UNIQUE, url varchar(500) UNIQUE, created_at date);', function(){

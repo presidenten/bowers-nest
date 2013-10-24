@@ -1,4 +1,4 @@
------------------------------------------------------------
+
 Bowers nest
 ===========
 A Bower registry in Node, Express & SQLite3 that tries to be an easy way of hosting private Bower registrys.
@@ -7,7 +7,7 @@ A Bower registry in Node, Express & SQLite3 that tries to be an easy way of host
 Getting started
 ---------------
 
------------------------------------------------------------
+### Install dependencies
 
 Install SQLite3
 
@@ -23,6 +23,8 @@ Install bower dependencies
 
     bower install
 
+### Setup database and server
+
 Run tests and sync with official Bower repository
 
     grunt 
@@ -36,6 +38,8 @@ Configure SSH on your server
 	
 	Read more here: https://help.ubuntu.com/10.04/serverguide/openssh-server.html
 
+### And finally...
+
 Run server
 
     node bowers-nest.js
@@ -48,15 +52,15 @@ Copy .bowerrc to to your project and have fun!
 
 Register package with name = unicorn 
 
-    grunt register:'unicorn'
+    grunt register:unicorn
 
 To register package with name and URL, please use curl like so
 
 	curl http://localhost:9000/packages/ -v -F 'name=package1' -F 'url=http://repo1.git'
 
-Unregister package with name=unicorn
+Unregister package with name = unicorn
 
-    grunt unregister:'unicorn'
+    grunt unregister:unicorn
     
 Run tests
 
@@ -65,7 +69,6 @@ Run tests
 Sync with official Bower registry packages
 
 	grunt sync
-	
 
     
 
