@@ -1,5 +1,7 @@
-var sqlite3 = require('sqlite3').verbose();
+// Remove the quotes below and fill in <proxy-ip> and <proxy-port> if you use a proxy
+//require('./http-proxy')('<proxy-ip>',<proxy-port>);
 
+var sqlite3 = require('sqlite3').verbose();
 var dbName = 'nest.db';
 var serverLocation = 'ssh://<ip-address>';
 

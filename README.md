@@ -14,7 +14,7 @@ Getting started
 Install SQLite3
 
 	sudo apt-get update
-    sudo apt-get install sqlite3 git-core -y
+    sudo apt-get install sqlite3 git-core curl -y
 
 Install node dependencies
 
@@ -27,6 +27,11 @@ Install bower dependencies
 
 ### Setup database and server
 
+If you have a proxy you need to add it to these to files on line 2:
+
+    nano +2 Gruntfile.js
+    nano +2 templates/.bowerrc
+
 Run tests and sync with official Bower repository
 
     grunt 
@@ -35,9 +40,6 @@ Configure server location
 	
 	grunt config:<ip-address>:port
 
-If you have a proxy
-
-    gedit templates/.bowerrc
 	
 Configure SSH on your server
 	

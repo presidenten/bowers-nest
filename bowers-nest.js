@@ -1,5 +1,5 @@
 var server = require('./server/server');
 
-var port = <port>;
+var port = '<port>';
 
-server.start(port);
+server.start(parseInt(port,10));

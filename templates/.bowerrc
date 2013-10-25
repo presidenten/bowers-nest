@@ -1,8 +1,8 @@
 {
+     "proxy": "",
      "directory": "bower_components",
      "registry": "http://<ip-address>:<port>",
      "registry.search": "http://<ip-address>:<port>",
      "registry.register": "http://<ip-address>:<port>",
-     "registry.publish": "http://<ip-address>:<port>",
-     "proxy": ""
+     "registry.publish": "http://<ip-address>:<port>"
  }
