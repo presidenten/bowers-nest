@@ -1,6 +1,6 @@
 {
   "name": "bowers-nest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Bower registry written for node and express with SQLite3",
   "main": "server.js",
   "scripts": {

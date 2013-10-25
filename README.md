@@ -45,8 +45,11 @@ Run server
     node bowers-nest.js
     
 Copy .bowerrc to to your project and have fun!
+Now these commands will use your private Bower registry
 
-
+    bower search
+    bower install <package-name>
+    bower remove <package-name>
 
 ### Grunt tasks, how to register packages etc
 
@@ -70,7 +73,23 @@ Sync with official Bower registry packages
 
 	grunt sync
 
-    
+
+### Example usage scenario
+
+- Install and start the server
+
+- Add your package
+
+    grunt register:<my-package>
+
+- Follow onscreen instructions to add the new git remote and push your code into it
+
+- Add .bowerrc in your new development project
+
+- Install your new package along with all dependencies
+
+    bower install <my-package>
+
 
 ### Manual commands through curl:
 List packages, add package1 and package2, list package1, search for 1, remove one and list all
