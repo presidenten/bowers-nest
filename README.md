@@ -49,20 +49,20 @@ Run server
 
     node bowers-nest.js
     
-Copy .bowerrc to to your project and have fun!
+Copy templates/.bowerrc to to your project and have fun!
 Now these commands will use your private Bower registry
 
     bower search
     bower install <package-name>
     bower remove <package-name>
 
-### Grunt tasks, how to register packages etc
+### How to register packages etc
 
-Register package with name = unicorn 
+Register package with name = unicorn. Run this command and follow on screen instructions
 
     grunt register:unicorn
 
-To register package with name and URL, please use curl like so
+To register package without automatically setting up git repository, run this command
 
 	curl http://<ip-adress>:<port>/packages/ -v -F 'name=package1' -F 'url=http://repo1.git'
 
@@ -81,7 +81,7 @@ Sync with official Bower registry packages
 
 ### Example usage scenario
 
-- Install and start the server
+- Install, configure and start the server
 
 - Add your package
 
@@ -89,7 +89,7 @@ Sync with official Bower registry packages
 
 - Follow onscreen instructions to add the new git remote and push your code into it
 
-- Add .bowerrc in your new development project
+- Add templates/.bowerrc in your new development project
 
 - Install your new package along with all dependencies
 
