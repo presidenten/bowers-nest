@@ -34,6 +34,10 @@ Run tests and sync with official Bower repository
 Configure server location
 	
 	grunt config:<ip-address>:port
+
+If you have a proxy
+
+    gedit templates/.bowerrc
 	
 Configure SSH on your server
 	
