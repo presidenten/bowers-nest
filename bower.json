@@ -9,14 +9,16 @@
   "description": "A Bower registry written for node and express with SQLite3",
   "keywords": [
     "Bower",
-      "Registry",
-      "NodeJS"
+    "Registry",
+    "Repository",
+    "NodeJS"
   ],
   "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components"
+    "bower_components",
+    "git_repositories"
   ],
   "dependencies":{
 
