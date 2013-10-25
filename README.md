@@ -2,9 +2,10 @@
 Bowers nest
 ===========
 A Bower registry in Node, Express & SQLite3 that tries to be an easy way of hosting private Bower registrys.
-The target audience are users that develop proprietary javascript but still want to use Bower as package manager.
+The target audience are users that develop proprietary javascript stored on servers that require ssh connections, but still want to use Bower as package manager.
 
-#### Bowers nest handles both official and private dependencies
+#### Bowers nest handles packages that require ssh connections
+
 
 Getting started
 ---------------
