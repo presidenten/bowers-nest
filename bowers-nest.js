@@ -1,3 +1,5 @@
 var server = require('./server/server');
 
-server.start();
+var port = <port>;
+
+server.start(port);

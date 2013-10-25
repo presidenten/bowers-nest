@@ -1,8 +1,8 @@
 {
-    "directory": "bower_components",
-    "registry": "http://localhost:9000",
-    "registry.search": "http://localhost:9000",
-    "registry.register": "http://localhost:9000",
-    "registry.publish": "http://localhost:9000",
-    "proxy": ""
-}
+     "directory": "bower_components",
+     "registry": "http://<ip-address>:<port>",
+     "registry.search": "http://<ip-address>:<port>",
+     "registry.register": "http://<ip-address>:<port>",
+     "registry.publish": "http://<ip-address>:<port>",
+     "proxy": ""
+ }

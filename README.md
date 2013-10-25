@@ -33,8 +33,7 @@ Run tests and sync with official Bower repository
     
 Configure server location
 	
-	gedit Gruntfile.js
-	gedit templates/.bowerrc
+	grunt config:<ip-address>:port
 	
 Configure SSH on your server
 	
@@ -61,7 +60,7 @@ Register package with name = unicorn
 
 To register package with name and URL, please use curl like so
 
-	curl http://localhost:9000/packages/ -v -F 'name=package1' -F 'url=http://repo1.git'
+	curl http://<ip-adress>:<port>/packages/ -v -F 'name=package1' -F 'url=http://repo1.git'
 
 Unregister package with name = unicorn
 
@@ -96,10 +95,10 @@ Sync with official Bower registry packages
 ### Manual commands through curl:
 List packages, add package1 and package2, list package1, search for 1, remove one and list all
 
-    curl http://localhost:9000/packages/
-    curl http://localhost:9000/packages/ -v -F 'name=package1' -F 'url=http://repo1.git'
-    curl http://localhost:9000/packages/ -v -F 'name=package2' -F 'url=http://repo2.git'
-    curl http://localhost:9000/packages/package1
-    curl http://localhost:9000/packages/search/1
-    curl -v -X DELETE localhost:9000/packages/package1
-    curl http://localhost:9000/packages/
+    curl http://<ip-adress>:<port>/packages/
+    curl http://<ip-adress>:<port>/packages/ -v -F 'name=package1' -F 'url=http://repo1.git'
+    curl http://<ip-adress>:<port>/packages/ -v -F 'name=package2' -F 'url=http://repo2.git'
+    curl http://<ip-adress>:<port>/packages/package1
+    curl http://<ip-adress>:<port>/packages/search/1
+    curl -v -X DELETE <ip-adress>:<port>/packages/package1
+    curl http://<ip-adress>:<port>/packages/

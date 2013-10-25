@@ -1,7 +1,7 @@
 var sqlite3 = require('sqlite3').verbose();
 
 var dbName = 'nest.db';
-var serverLocation = 'ssh://localhost:9000';
+var serverLocation = 'ssh://<ip-address>';
 
 module.exports = function ( grunt ) {
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -136,5 +136,25 @@ module.exports = function ( grunt ) {
             console.log('\nModule name can\'t be undefined.');
             console.log('\nShutting down...\n');
         }
+    });
+
+    grunt.registerTask('config', function(ip,port){
+        var gruntTextReplace = require('grunt-text-replace/lib/grunt-text-replace');
+        console.log(ip);
+        console.log(port);
+        gruntTextReplace.replace({
+            src: ['Gruntfile.js', 'bowers-nest.js', 'templates/.bowerrc'],
+            overwrite: true,
+            replacements: [
+                {
+                    from:/<ip-address>/g,
+                    to: ip
+                },
+                {
+                    from:/<port>/g,
+                    to: port
+                }
+            ]
+        });
     });
 };
