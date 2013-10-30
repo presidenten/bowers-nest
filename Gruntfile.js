@@ -27,19 +27,13 @@ module.exports = function ( grunt ) {
             requirejs: false,
             forceExit: true
         },
-        curl: {
-            long: {
-                src: 'http://bower.herokuapp.com/packages',
-                dest: 'git_repositories/all_bower_packages.json'
-            }
-        },
         clean: {
-            all: 'git_repositories'
+            all: 'git_repositories/all_bower_packages.json'
         }
     });
 
     grunt.registerTask('test', ['jshint', 'jasmine_node']);
-    grunt.registerTask('sync', ['clean', 'curl', 'sync_db']);
+    grunt.registerTask('sync', ['clean', 'get_bower_packages', 'sync_db']);
     grunt.registerTask('default', ['test', 'sync']);
 
     grunt.registerTask('init_db', 'Sync database to Bower official registry', function(){
@@ -49,6 +43,49 @@ module.exports = function ( grunt ) {
             'name varchar(500) UNIQUE, url varchar(500) UNIQUE, created_at date);', function(){
             done();
         });
+    });
+
+    grunt.registerTask('get_bower_packages', 'Get official bower packages', function(){
+        var fs = require('fs');
+        var request = require('request');
+        var progress = require('request-progress');
+        var util = require('util');
+        var done = this.async();
+        var url = 'http://bower.herokuapp.com/packages';
+
+        if(!fs.existsSync('git_repositories')){
+            fs.mkdir('git_repositories');
+        }
+
+        //request = request.defaults({'proxy':'http://<proxy-ip>:<proxy-port>'});
+
+        var total = '';
+        progress(request(url), {
+            throttle: 1000,
+            delay: 500
+        })
+            .on('progress', function (state) {
+                util.print('Receiving ' + state.received + ' of ' + state.total +
+                           ' bytes. ' + state.percent + '% done.\r');
+                total = state.total;
+            })
+            .on('error', function (err) {
+                console.log('Could not read '+ url +' - ' + err);
+            })
+            .pipe(fs.createWriteStream('git_repositories/all_bower_packages.json'))
+            .on('error', function (err) {
+                console.log('Could not save git_repositories/all_bower_packages.json - ' + err);
+            })
+            .on('close', function (err) {
+                if(total !== ''){
+                    util.print('Receiving ' + total + ' of ' + total +
+                        ' bytes. 100 % done.\r');
+                }
+                else {
+                    util.print('100 % done.\r');
+                }
+                done();
+            });
     });
 
     grunt.registerTask('sync_db', 'Sync database to Bower official registry', function(){

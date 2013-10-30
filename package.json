@@ -1,6 +1,6 @@
 {
   "name": "bowers-nest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Bower registry written for node and express with SQLite3",
   "main": "server.js",
   "scripts": {
@@ -30,8 +30,9 @@
     "supertest": "~0.8.0",
     "jasmine-node": "~1.11.0",
     "grunt-jasmine-node": "~0.1.0",
-    "grunt-curl": "~1.1.1",
     "grunt-contrib-clean": "~0.5.0",
-    "grunt-text-replace": "~0.3.8"
+    "grunt-text-replace": "~0.3.8",
+    "request": "~2.27.0",
+    "request-progress": "~0.3.1"
   }
 }

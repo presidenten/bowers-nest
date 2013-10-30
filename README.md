@@ -24,13 +24,14 @@ Install node dependencies
 
 Install bower dependencies
 
+    git config --global http.sslVerify false
     bower install
 
 ### Setup database and server
 
 If you have a proxy you need to add it to these to files on line 2:
 
-    nano +2 Gruntfile.js
+    nano +62 Gruntfile.js
     nano +2 templates/.bowerrc
 
 Run tests and sync with official Bower repository
