@@ -128,7 +128,11 @@ module.exports = function ( grunt ) {
             var cp = require('child_process');
             cp.exec('git init --bare git_repositories/'+name+'.git');
 
-            var url = serverLocation + __dirname +'/git_repositories/'+name+'.git';
+            var dirname = __dirname;
+            if(dirname.slice(1,3) === ':\\'){
+                dirname = dirname.slice(3).replace('\\','/');
+            }
+            var url = serverLocation + dirname + '/git_repositories/' + name + '.git';
 
             db.run('CREATE table IF NOT EXISTS packages(id integer primary key, ' +
                 'name varchar(500) UNIQUE, url varchar(500) UNIQUE, created_at date);', function(){
