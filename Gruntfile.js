@@ -130,7 +130,7 @@ module.exports = function ( grunt ) {
 
             var dirname = __dirname;
             if(dirname.slice(1,3) === ':\\'){
-                dirname = dirname.slice(3).replace('\\','/');
+                dirname = dirname.slice(3).replace(/\\/g,'/');
             }
             var url = serverLocation + dirname + '/git_repositories/' + name + '.git';
 
