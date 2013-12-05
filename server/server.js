@@ -7,6 +7,7 @@ var db = {};
 var template400 = '<h1>Error 400: Post syntax incorrect.</h1>\n';
 var template404 = '<h1>404 - Not found</h1>\n';
 var template406 = '<h1>Error 406: Not Acceptable. Package name and url must be unique.</h1>\n';
+var template503 = '<h1>Error 503: Database error. Please try again</h1>\n';
 exports.template400 = template400;
 exports.template404 = template404;
 exports.template406 = template406;
@@ -111,5 +112,13 @@ app.post('/packages', function(req, res){
 
 app.delete('/packages/:name', function(req, res){
     var name = req.params.name;
-    db.run('DELETE FROM packages WHERE name = $name', {$name: name});
+    db.run('DELETE FROM packages WHERE name = $name', {$name: name}, function(err) {
+        if(err) {
+            res.statusCode = 503;
+            res.send(template503);
+        } else {
+            res.statusCode = 204;
+            res.send("");
+        }
+    });
 });
