@@ -2,7 +2,7 @@
 //require('./http-proxy')('<proxy-ip>',<proxy-port>);
 
 var sqlite3 = require('sqlite3').verbose();
-var dbName = 'nest.db';
+var dbName = require('path').join(__dirname, 'nest.db');
 var serverLocation = 'ssh://<ip-address>';
 
 module.exports = function ( grunt ) {

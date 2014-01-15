@@ -43,7 +43,7 @@ exports.openDB = openDB;
 exports.initDB = initDB;
 
 app.configure(function () {
-    openDB('nest.db');
+    openDB(require('path').join(__dirname, '..', 'nest.db'));
     initDB(db);
     app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
     app.use(express.bodyParser());
