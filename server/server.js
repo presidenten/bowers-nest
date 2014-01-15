@@ -33,7 +33,7 @@ var openDB = function(dbName){
 };
 var initDB = function(db, callback){
     db.run('CREATE table IF NOT EXISTS packages(id integer primary key, ' +
-           'name varchar(500) UNIQUE, url varchar(500) UNIQUE, created_at date);', function(){
+           'name varchar(500) UNIQUE, url varchar(500), created_at date);', function(){
         if(typeof(callback) === 'function'){
             callback();
         }
@@ -43,7 +43,7 @@ exports.openDB = openDB;
 exports.initDB = initDB;
 
 app.configure(function () {
-    openDB('nest.db');
+    openDB(require('path').join(__dirname, '..', 'nest.db'));
     initDB(db);
     app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
     app.use(express.bodyParser());
