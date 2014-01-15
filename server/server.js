@@ -33,7 +33,7 @@ var openDB = function(dbName){
 };
 var initDB = function(db, callback){
     db.run('CREATE table IF NOT EXISTS packages(id integer primary key, ' +
-           'name varchar(500) UNIQUE, url varchar(500) UNIQUE, created_at date);', function(){
+           'name varchar(500) UNIQUE, url varchar(500), created_at date);', function(){
         if(typeof(callback) === 'function'){
             callback();
         }

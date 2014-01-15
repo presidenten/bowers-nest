@@ -40,7 +40,7 @@ module.exports = function ( grunt ) {
         var done = this.async();
         var db = new sqlite3.Database(dbName);
         db.run('CREATE table IF NOT EXISTS packages(id integer primary key, ' +
-            'name varchar(500) UNIQUE, url varchar(500) UNIQUE, created_at date);', function(){
+            'name varchar(500) UNIQUE, url varchar(500), created_at date);', function(){
             done();
         });
     });
@@ -95,7 +95,7 @@ module.exports = function ( grunt ) {
         var util = require('util');
 
         db.run('CREATE table IF NOT EXISTS packages(id integer primary key, ' +
-            'name varchar(500) UNIQUE, url varchar(500) UNIQUE, created_at date);', function(){
+            'name varchar(500) UNIQUE, url varchar(500), created_at date);', function(){
 
             var count = 1;
             bowerDB.forEach(function(e){
@@ -131,7 +131,7 @@ module.exports = function ( grunt ) {
             var url = serverLocation + __dirname +'/git_repositories/'+name+'.git';
 
             db.run('CREATE table IF NOT EXISTS packages(id integer primary key, ' +
-                'name varchar(500) UNIQUE, url varchar(500) UNIQUE, created_at date);', function(){
+                'name varchar(500) UNIQUE, url varchar(500), created_at date);', function(){
                 db.run('INSERT INTO packages ("name", "url", "created_at") VALUES ($name, $url, $date)',
                     {
                         $name: name,
@@ -163,7 +163,7 @@ module.exports = function ( grunt ) {
             var db = new sqlite3.Database(dbName);
 
             db.run('CREATE table IF NOT EXISTS packages(id integer primary key, ' +
-                'name varchar(500) UNIQUE, url varchar(500) UNIQUE, created_at date);', function(){
+                'name varchar(500) UNIQUE, url varchar(500), created_at date);', function(){
                 db.run('DELETE FROM packages WHERE name = $name', {$name: name}, function(err, row){
                         console.log('\nModule \"'+name+'\" is unregistered.\n');
                         console.log('Dont forget to remove the git_repository.');
